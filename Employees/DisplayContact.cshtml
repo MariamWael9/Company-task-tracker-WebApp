@@ -1,0 +1,66 @@
+﻿@model List<Employee>
+
+@{
+    ViewData["Title"] = "List of Employees";
+}
+<style>
+    a.btn.my-btn:hover {
+        background: #e60000;
+    }
+</style>
+
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" >PGESCo Tasks Calender</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Tasks" asp-action="EmpCal"><i class="badge-info bi-house "> </i>Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Employees" asp-action="DisplayContact" >Contact Supervisors</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Tasks" asp-action="DisplayForEmp" >My Tasks</a>
+                    </li>
+
+                </ul>
+                <a class="btn my-btn btn-dark" asp-area="" asp-controller="Home" asp-action="LogIn">Logout</a>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="row">
+    <div class=" offset-md-0.5">
+        <table class="table table-auto">
+            <thead> 
+                <tr>
+                    <th> ID</th>
+                    <th> Name</th>
+                    <th class="align-middle text-center"> Title</th>
+                    <th class ="align-middle text-center"> Phone</th>
+                    <th class="align-middle text-center"> Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="align-middle">@Html.DisplayFor(modelItem => item.Id)</td>
+                        <td class="align-middle">@Html.DisplayFor(modelItem => item.Name)</td>
+                        <td class="align-middle text-center">@Html.DisplayFor(modelItem => item.Title)</td>
+                        <td class="align-middle text-center">@Html.DisplayFor(modelItem => item.Phone)</td>
+                        <td class="align-middle text-center">@Html.DisplayFor(modelItem => item.Email)</td>
+                    </tr>
+                }
+            </tbody>
+            
+        </table>
+    </div>
+</div>

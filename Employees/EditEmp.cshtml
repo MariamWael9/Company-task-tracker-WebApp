@@ -1,0 +1,128 @@
+﻿@model Employee
+@using CompanyWebApp.Data.enums;
+
+@{
+    ViewData["Title"] = "Edit Employee";
+}
+<style>
+    a.btn.my-btn:hover {
+        background: #e60000;
+    }
+</style>
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" asp-area="" asp-controller="Tasks" asp-action="AdminCal">PGESCo Tasks Calender</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Tasks" asp-action="EmpCal"><i class="badge-info bi-house "> </i>Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Employees" asp-action="Display">Employees</a>
+                    </li>
+                    <li>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Departments" asp-action="Display">Departments</a>
+                    </li>
+                    <li>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Tasks" asp-action="DisplayForEmp">My Tasks</a>
+                    </li>
+                </ul>
+                <a class="btn my-btn btn-dark" asp-area="" asp-controller="Home" asp-action="LogIn">Logout</a>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p> 
+            <h2>Edit Employee</h2> 
+         </p>
+         <div class="row">
+            <div class="col-md-8 offset-2">
+                <form asp-action="EditEmp">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="Id" class="control-label">ID</label>
+                        <input asp-for="Id" class=" form-control" readonly />
+                        <span asp-validation-for="Id" class="text-danger"></span>
+                        <br />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label">Name</label>
+                        <input asp-for="Name" class=" form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                        <br />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Phone" class="control-label">Phone</label>
+                        <input asp-for="Phone" class=" form-control" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                        <br />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label">Email</label>
+                        <input asp-for="Email" class=" form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                        <br />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Password" class="control-label">Password</label>
+                        <input asp-for="Password" class=" form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                        <br />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Title" class="control-label">Title</label>
+                        <input asp-for="Title" class=" form-control" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                        <br />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Supervisor_Id" class="control-label">Supervisor's ID</label>
+                        <input asp-for="Supervisor_Id" class=" form-control" />
+                        <span asp-validation-for="Supervisor_Id" class="text-danger"></span>
+                        <br />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Dep_Id" class="control-label">Department ID</label>
+                        <input asp-for="Dep_Id" class=" form-control" />
+                        <span asp-validation-for="Dep_Id" class="text-danger"></span>
+                        <br />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="empRole" class="control-label">Role</label>
+                        <select asp-for="empRole" class="form-control">
+                            @foreach (var role in Enum.GetValues(typeof(EmpRole)))
+                            {
+                                <option value="@role">@role</option>
+                            }
+                        </select>
+                        <span asp-validation-for="empRole" class="text-danger"></span>
+                        <br />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="empStatus" class="control-label">Status</label>
+                        <select asp-for="empStatus" class="form-control">
+                            @foreach (var stat in Enum.GetValues(typeof(EmpStatus)))
+                            {
+                                <option value="@stat">@stat</option>
+                            }
+                        </select>
+                        <span asp-validation-for="empStatus" class="text-danger"></span>
+                        <br />
+                    </div>
+                    <div class="form-group text-center">
+                        <input type="submit" value="Update" class="btn btn-outline-dark" />
+                    </div>
+                </form>
+                
+             </div>
+         </div>
+    </div>
+</div>

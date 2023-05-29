@@ -1,0 +1,75 @@
+﻿@model department
+
+@{
+    ViewData["Title"] ="Delete Department";
+}
+<style>
+    a.btn.my-btn:hover {
+        background: #e60000;
+    }
+</style>
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" asp-area="" asp-controller="Tasks" asp-action="AdminCal">PGESCo Tasks Calender</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Tasks" asp-action="EmpCal"><i class="badge-info bi-house "> </i>Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Employees" asp-action="Display">Employees</a>
+                    </li>
+                    <li>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Departments" asp-action="Display">Departments</a>
+                    </li>
+                    <li>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Tasks" asp-action="DisplayForEmp">My Tasks</a>
+                    </li>
+                </ul>
+                <a class="btn my-btn btn-dark" asp-area="" asp-controller="Home" asp-action="LogIn">Logout</a>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h2>Delete @Model.Name</h2>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+
+                <form asp-action="EditDep">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Id" class="control-label">ID</label>
+                        <input asp-for="Id" class=" form-control" readonly />
+                        <span asp-validation-for="Id" class="text-danger"></span>
+                        <br />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label">Name</label>
+                        <input asp-for="Name" class=" form-control" readonly />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                        <br />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Manager_Id" class="control-label">Manager ID</label>
+                        <input asp-for="Manager_Id" class=" form-control" readonly />
+                        <span asp-validation-for="Manager_Id" class="text-danger"></span>
+                        <br />
+                    </div>
+                    <div class="form-group text-center">
+                        <input type="submit" value="Delete" class="btn btn-outline-danger" asp-controller="Departments" asp-action="DeleteDep" asp-route-DepId="@Model.Id" />
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

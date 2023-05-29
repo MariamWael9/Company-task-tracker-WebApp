@@ -1,0 +1,189 @@
+﻿@model object[]
+@using CompanyWebApp.Data.enums;
+@{
+    ViewData["Title"] = "Task Details";
+    var employee = Model[0] as Employee;
+    var data = Model[1] as task;
+    var com = Model[3] as comment;
+    com.Emp_Id = employee.Id;
+    com.Task_Id = data.Id;
+}
+<style>
+    a.btn.my-btn:hover {
+        background: #e60000;
+    }
+</style>
+
+@if (employee.empRole == EmpRole.Admin)
+{
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand">PGESCo Tasks Calender</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Tasks" asp-action="EmpCal"><i class="badge-info bi-house "> </i>Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Employees" asp-action="Display">Employees</a>
+                        </li>
+                        <li>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Departments" asp-action="Display">Departments</a>
+                        </li>
+                        <li>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Tasks" asp-action="DisplayForEmp">My Tasks</a>
+                        </li>
+                    </ul>
+                    <a class="btn my-btn btn-dark" asp-area="" asp-controller="Home" asp-action="LogIn">Logout</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+}
+else if (employee.empRole == EmpRole.Manager || employee.empRole == EmpRole.Supervisor)
+{
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand">PGESCo Tasks Calender</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Tasks" asp-action="EmpCal"><i class="badge-info bi-house "> </i>Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Tasks" asp-action="DisplayForEmp">My Tasks</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Tasks" asp-action="Display">My Team's Tasks</a>
+                        </li>
+                    </ul>
+                    <a class="btn my-btn btn-dark" asp-area="" asp-controller="Home" asp-action="LogIn">Logout</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+}
+else
+{
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand">PGESCo Tasks Calender</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Tasks" asp-action="EmpCal"><i class="badge-info bi-house "> </i>Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Employees" asp-action="DisplayContact">Contact Supervisors</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Tasks" asp-action="DisplayForEmp">My Tasks</a>
+                        </li>
+
+                    </ul>
+                    <a class="btn my-btn btn-dark" asp-area="" asp-controller="Home" asp-action="LogIn">Logout</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h2>Task details</h2>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+
+                <form asp-action="ViewTask">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="@(((task)data).taskDesc)" class="control-label">Task Description</label>
+                        <input asp-for="@(((task)data).taskDesc)" class="form-control" readonly />
+                        <br />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@(((task)data).taskStatues)" class="control-label">Task Status</label>
+                        <input asp-for="@(((task)data).taskStatues)" class="form-control" readonly />
+                        <br />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@(((task)data).StartDate)" class="control-label">Task Start Date</label>
+                        <input asp-for="@(((task)data).StartDate)" class="form-control" readonly />
+                        <br />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@(((task)data).EndDate)" class="control-label">End Date</label>
+                        <input asp-for="@(((task)data).EndDate)" class="form-control" readonly />
+                        <br />
+                        <br />
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <table class="table table-auto">
+            <thead>
+                <tr>
+                    <th> <b>Comments</b></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in (List<comment>)Model[2])
+                {
+                    <tr>
+                        <td class="align-middle">@Html.DisplayFor(modelItem => item.employee.Name)</td>
+                        <td class="align-middle">@Html.DisplayFor(modelItem => item.Text)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <form method="post" asp-controller="Comments" asp-action="AddComment">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <input asp-for="@(((comment)com).Task_Id)" class="form-control" readonly type="hidden" />
+                        <input asp-for="@(((comment)com).Emp_Id)" class="form-control" readonly type="hidden" />
+                        <br />
+                    </div>
+
+                    <div class="form-group">
+                        <input asp-for="@(((comment)com).Text)" class=" form-control" />
+                        <span asp-validation-for="@(((comment)com).Text)" class="text-danger"></span>
+                        <br />
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-outline-dark"><i class="bi bi-pencil-square "></i>  Add Comment</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+

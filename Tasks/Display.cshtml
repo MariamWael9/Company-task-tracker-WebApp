@@ -1,0 +1,90 @@
+﻿@model List<task>
+
+@{
+    ViewData["Title"] = "Tasks in your department";
+}
+<style>
+    a.btn.my-btn:hover {
+        background: #e60000;
+    }
+
+    .custom-spacing {
+        margin-left: 10px; /* Adjust the margin value as per your desired spacing */
+    }
+</style>
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container-fluid">
+            <a class="navbar-brand">PGESCo Tasks Calender</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Tasks" asp-action="EmpCal"><i class="badge-info bi-house "> </i>Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Tasks" asp-action="DisplayForEmp">My Tasks</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Tasks" asp-action="Display">My Team's Tasks</a>
+                    </li>
+                </ul>
+                <a class="btn my-btn btn-dark" asp-area="" asp-controller="Home" asp-action="LogIn">Logout</a>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="row">
+    <div class=" offset-md-0.5">
+        <table class="table table-auto">
+            <thead>
+                <tr>
+                    <th> Task</th>
+                    <th> Assigned to</th>
+                    <th> Start Date</th>
+                    <th> End Date</th>
+                    <th> Status</th>
+                    <th>         </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="align-middle">@item.taskDesc</td>
+                        <td class="align-middle">@item.employee.Name</td>
+                        <td class="align-middle">@item.StartDate.ToString("dd/MM/yyyy")</td>
+                        <td class="align-middle">@item.EndDate.ToString("dd/MM/yyyy")</td>
+                        @if (@item.taskStatues != null)
+                        {
+                            <td class="align-middle">@item.taskStatues</td>
+                        }
+                        else if (DateTime.Now > item.EndDate)
+                        {
+                            <td class="align-middle">Passed</td>
+                        }
+                        <td class="align-middle">
+                            <div class="btn-group" role="group">
+                                <a class="btn btn-outline-dark" asp-controller="Tasks" asp-action="ViewTask" asp-route-taskId="@item.Id"><i class="bi bi-eye "></i>  View</a>
+                                <a class="btn btn-outline-dark" asp-controller="Tasks" asp-action="MngEditTask" asp-route-taskId="@item.Id"><i class="bi bi-pencil-square "></i>  Edit and Re-assign</a>
+                                <form method="post" asp-controller="Tasks" asp-action="MngDelTask" asp-route-taskId="@item.Id" class="d-inline">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-outline-danger custom-spacing">
+                                        <i class="bi bi-journal-minus"></i> Delete
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="text-center">
+            <a class="btn btn-outline-dark" asp-controller="Tasks" asp-action="MngAssignTask"><i class="bi bi-journal-plus "></i>  Assign Task</a>
+            <a class="btn btn-outline-dark"><i class="bi bi-journal-plus "></i>  Generate Report</a>
+        </div>
+    </div>
+</div>
